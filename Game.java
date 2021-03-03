@@ -17,7 +17,7 @@ public class Game {
         }else if(firstTeam.getScore() < secondTeam.getScore()){
             System.out.println(secondTeam.getName() + " wins");
         }else {
-            System.out.println("Result: ");
+            System.out.println("Draw!");
         }
     }
     private void bats(Team team){
