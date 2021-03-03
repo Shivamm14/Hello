@@ -13,9 +13,12 @@ public class Game {
     // case when its draw.
     private void printResult(){
         if(firstTeam.getScore() > secondTeam.getScore() ){
-
+            System.out.println(firstTeam.getName() + " wins");
+        }else if(firstTeam.getScore() < secondTeam.getScore()){
+            System.out.println(secondTeam.getName() + " wins");
+        }else {
+            System.out.println("Result: ");
         }
-        System.out.println("Result: ");
     }
     private void bats(Team team){
         int totalBalls = 6 * overs;
