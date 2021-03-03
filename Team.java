@@ -1,19 +1,44 @@
 package com.company;
 
 import java.util.ArrayList;
-
+// Assuming the team will be build one time.
+// with players arrayList. Players won't be added after the initial adding.
 public class Team {
     private String name;
-    private int score = 0;
-    private ArrayList<Player> players = new ArrayList<>();
-    private int wickets = 10;
+    private int score;
+    private ArrayList<Player> players = new ArrayList<Player>();
+    private ArrayList<Player> inPlayers = new ArrayList<Player>();
+    private  ArrayList<Player> outPlayers = new ArrayList<Player>();
+    private Player batter, runner;
 
-    public Team() {
-
+    // Assuming more than 2 players.
+    public Team(String name, ArrayList<Player> players) {
+        this.name = name;
+        // adding players.
+        for(Player player : players){
+            this.players.add(player);
+            this.inPlayers.add(player);
+        }
+        batter = inPlayers.get(0);
+        inPlayers.remove(0);
+        runner = inPlayers.get(0);
+        inPlayers.remove(0);
     }
 
-    public Team(String name) {
-        this.name = name;
+    public Player getBatter() {
+        return batter;
+    }
+
+    public Player getRunner() {
+        return runner;
+    }
+
+    private void setBatter(Player batter) {
+        this.batter = batter;
+    }
+
+    private void setRunner(Player runner) {
+        this.runner = runner;
     }
 
     public void setName(String name) {
@@ -24,13 +49,6 @@ public class Team {
         this.score = score;
     }
 
-    public void setPlayers(ArrayList<Player> players) {
-        this.players = players;
-    }
-
-    public void setWickets(int wickets) {
-        this.wickets = wickets;
-    }
 
     public String getName() {
         return name;
@@ -43,10 +61,39 @@ public class Team {
     public ArrayList<Player> getPlayers() {
         return players;
     }
-
-    public int getWickets() {
-        return wickets;
+    // Returns the next player which the nextPlayer pointer is pointing to.
+    // TODO:
+    // Handle the no more players situation more effectively. Better to fail. Throw exception
+    private Player getNextPlayer(){
+        if(hasNextPlayer()){
+            Player removed = inPlayers.get(0);
+            inPlayers.remove(0);
+            outPlayers.add(removed);
+            return removed;
+        }else{
+            // crash
+            return null;
+        }
     }
+
+    public boolean hasNextPlayer() {
+        return !inPlayers.isEmpty();
+    }
+    public void takeTurn(){
+        // Assuming batter and runner are set.
+        Player temp = batter;
+        batter = runner;
+        runner = temp;
+    }
+    public void increaseScore(int runs){
+        score += runs;
+        batter.setScore(batter.getScore() + runs);
+    }
+    public void increaseWicket(){
+        // Assuming hasNext is true
+        batter = getNextPlayer();
+    }
+
 }
 
 // TODO
