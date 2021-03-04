@@ -81,8 +81,17 @@ public class TestTeam {
         Assertions.assertEquals(1, team.getWickets());
         team.increaseWicket();
         Assertions.assertEquals(2, team.getWickets());
-        // 4 players. 2 opening, 2 in inPlayers.
-        //
+        team.increaseWicket();
+        Assertions.assertEquals(false, team.hasNextPlayer());
+        Assertions.assertEquals(3, team.getWickets());
+
+        team.increaseWicket();
+        Assertions.assertEquals(3, team.getWickets());
+
+        // 4 players. 3 wickets allowed.
+        // edge case adding batter in outPlayers.
+        // repeated call to increase wicket will cause increasing wicket. So better check hasNext() before increasing
+        // wicket. Handle it by checking if already added.
 
     }
 

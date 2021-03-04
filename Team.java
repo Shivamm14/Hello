@@ -82,6 +82,8 @@ public class Team {
         score += runs;
         batter.setScore(batter.getScore() + runs);
     }
+    // this function puts the current batter in outPlayers and puts next Player from inPlayers as the current batter.
+    // Will do nothing if all out.
     public void increaseWicket(){
         // checking this condition to avoid repeated adding batter in outPlayers by calling increaseWickets.
         if(outPlayers.size() < players.size()-1)
@@ -117,3 +119,5 @@ public class Team {
 // Possible solution is adding batter and setter in outPlayers in starting as well, then have to change
 // getWickets to return outPlayers.size() - 2 to return current wickets.
 // Another solution is add the current batter in outPlayer when wicket is gone.
+// TODO
+// Comment each methods and class and put more rigorous tests.

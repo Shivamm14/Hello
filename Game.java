@@ -135,16 +135,19 @@ public class Game {
 
 /*
  TODO
- Implementing players individual score.
- Implementing turn taking of players.
- Using getNextPlayer() method in Team class to get next player to play.
+ Implementing players individual score. Done.
+ Implementing turn taking of players. Done
+ Using getNextPlayer() method in Team class to get next player to play. Done.
  Using canPlay attribute in player to get its state of whether can play or not.
 
  // Design decision: Would it be better to do the batter and runner inside the team itself with out exposing it in
     the Game class?
  TODO:
  Implementing batsman and bowler.
- Implementing constructor of Game to allow for setting overs by client.
+ Implementing constructor of Game to allow for setting overs by client. Done.
  Edge case of hasNext. What last two are playing and no one is left on the bench. It stops. Is it right?
  Ans: Might have to remove the condition hasNext from the while loop in matchStart and put it in the wicket part of else
+
+
+
 */
