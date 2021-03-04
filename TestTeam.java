@@ -68,7 +68,22 @@ public class TestTeam {
     }
 
     @Test
-    void getBatter() {
+    void testGetWickets() {
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(new Player("Sachin"));
+        players.add(new Player("Dravid"));
+        players.add(new Player("Virat"));
+        players.add(new Player("Rohit"));
+        Team team = new Team("India", players);
+
+        Assertions.assertEquals(0, team.getWickets());
+        team.increaseWicket();
+        Assertions.assertEquals(1, team.getWickets());
+        team.increaseWicket();
+        Assertions.assertEquals(2, team.getWickets());
+        // 4 players. 2 opening, 2 in inPlayers.
+        //
+
     }
 
     @Test
@@ -84,3 +99,4 @@ public class TestTeam {
     void testIncreaseWicket() {
     }
 }
+// edge case on getWickets.

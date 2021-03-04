@@ -93,6 +93,10 @@ public class Team {
         // Assuming hasNext is true
         batter = getNextPlayer();
     }
+    // returns number of wickets
+    public int getWickets(){
+        return outPlayers.size();
+    }
 
 }
 
