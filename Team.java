@@ -83,7 +83,9 @@ public class Team {
         batter.setScore(batter.getScore() + runs);
     }
     public void increaseWicket(){
-        outPlayers.add(batter); // making the current batter sit with out Players.
+        // checking this condition to avoid repeated adding batter in outPlayers by calling increaseWickets.
+        if(outPlayers.size() < players.size()-1)
+            outPlayers.add(batter); // making the current batter sit with out Players.
         // Assuming hasNext is true
         if(hasNextPlayer()){
             batter = getNextPlayer(); // getting next player in line to bat.
