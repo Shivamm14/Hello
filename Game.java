@@ -48,12 +48,16 @@ public class Game {
         System.out.println(firstTeam.getName() + " is batting first. ");
         // first inning
         int ballsLeft = overs * 6;
-        while(firstTeam.hasNextPlayer() && ballsLeft > 0){
+        // repeat till all balls played or all wickets gone.
+        while(ballsLeft > 0){
             int run = getRuns();
             if(run < 7){
                 firstTeam.increaseScore(run);
             }else{
                 // wicket
+                if(!firstTeam.hasNextPlayer()){
+                    break; // no more player left.
+                }
                 firstTeam.increaseWicket();
             }
             ballsLeft--;
@@ -61,6 +65,7 @@ public class Game {
             if(ballsLeft % 6 == 0){
                 firstTeam.takeTurn();
             }
+            // printing game state after each ball.
             System.out.printf("Balls left: %d, score: %d wickets: %d\n", ballsLeft, firstTeam.getScore(),
                     firstTeam.getWickets());
             System.out.println(firstTeam.getBatter() + " " + firstTeam.getRunner());
@@ -69,12 +74,16 @@ public class Game {
         // second inning.
         int targetScore = firstTeam.getScore();
         ballsLeft = 6 * overs;
-        while(secondTeam.hasNextPlayer() && ballsLeft > 0 && secondTeam.getScore() < targetScore ){
+        // repeat till last ball or last wicket is taken or target score is reached.
+        while(ballsLeft > 0 && secondTeam.getScore() < targetScore ){
             int run = getRuns();
             if(run < 7){
                 secondTeam.increaseScore(run);
             }else{
                 // wicket
+                if(!secondTeam.hasNextPlayer()){
+                    break; // no more player left.
+                }
                 secondTeam.increaseWicket();
             }
             ballsLeft--;
@@ -113,6 +122,11 @@ public class Game {
         }else{
             System.out.println("Draw!");
         }
+    }
+    // TODO
+    // this function takes user input of players.
+    private ArrayList<Player> getPlayers(){
+        return new ArrayList<Player>();
     }
 
 }

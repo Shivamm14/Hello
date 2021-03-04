@@ -23,6 +23,8 @@ public class TestGame {
     }
     @Test
     public void  testStartMatch(){
+        Game game = new Game(5);
+        game.buildStart();
 
     }
 }
