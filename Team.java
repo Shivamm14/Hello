@@ -62,18 +62,11 @@ public class Team {
         return players;
     }
     // Returns the next player which the nextPlayer pointer is pointing to.
-    // TODO:
-    // Handle the no more players situation more effectively. Better to fail. Throw exception
+    // Assumes hasNextPlayer() is true;
     private Player getNextPlayer(){
-        if(hasNextPlayer()){
-            Player removed = inPlayers.get(0);
-            inPlayers.remove(0);
-            outPlayers.add(removed);
-            return removed;
-        }else{
-            // crash
-            return null;
-        }
+        Player removed = inPlayers.get(0); // get the next player in line.
+        inPlayers.remove(0); // remove from inline.
+        return removed;
     }
 
     public boolean hasNextPlayer() {
@@ -90,8 +83,11 @@ public class Team {
         batter.setScore(batter.getScore() + runs);
     }
     public void increaseWicket(){
+        outPlayers.add(batter); // making the current batter sit with out Players.
         // Assuming hasNext is true
-        batter = getNextPlayer();
+        if(hasNextPlayer()){
+            batter = getNextPlayer(); // getting next player in line to bat.
+        }
     }
     // returns number of wickets
     public int getWickets(){
@@ -113,3 +109,9 @@ public class Team {
 // TOdo
 // Additional features: Toss, players-> batsman, bowler,
 // TODO pushing in github
+// TODO
+// Improving getNextPlayer method by assuming hasNext is true already.
+// Possible error in adding already set batter and setter in out players.
+// Possible solution is adding batter and setter in outPlayers in starting as well, then have to change
+// getWickets to return outPlayers.size() - 2 to return current wickets.
+// Another solution is add the current batter in outPlayer when wicket is gone.
