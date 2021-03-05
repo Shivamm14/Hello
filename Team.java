@@ -108,6 +108,18 @@ public class Team {
         return outPlayers.size();
     }
 
+    // this function reinitialise the inPlayers and outPlayers list.
+    public void reset(){
+        // rebuilding inPlayers.
+        inPlayers = new ArrayList<Player>(players);
+        // making the first two players as opening batsman.
+        batter = inPlayers.get(0);
+        inPlayers.remove(0);
+        runner = inPlayers.get(0);
+        inPlayers.remove(0);
+        outPlayers = new ArrayList<Player>(); // emptying outPlayers.
+    }
+
 }
 
 // TODO
