@@ -16,20 +16,20 @@ public class Game {
     public void buildStart(){
         // build teamOne
         ArrayList<Player> players = new ArrayList<Player>(Arrays.asList(
-                new Player("Sachin"),
-                new Player("Virat"),
-                new Player("Rohit"),
-                new Player("Dhoni"),
-                new Player("Hardik")
+                new Batsman("Sachin"),
+                new Batsman("Virat"),
+                new Batsman("Rohit"),
+                new Batsman("Dhoni"),
+                new Bowler("Hardik")
         ));
         Team teamOne = new Team("India", players);
         // build teamTwo
         players = new ArrayList<Player>(Arrays.asList(
-                new Player("Ab diviliears"),
-                new Player("Ricky"),
-                new Player("Bret lee"),
-                new Player("Clark"),
-                new Player("Micheal")
+                new Batsman("Ab diviliears"),
+                new Batsman("Ricky"),
+                new Bowler("Bret lee"),
+                new Bowler("Clark"),
+                new Bowler("Micheal")
         ));
         Team teamTwo = new Team("Australia", players);
 
@@ -92,7 +92,8 @@ public class Game {
                 secondTeam.takeTurn();
             }
             // printing current state of match.
-            System.out.printf("Balls left: %d, score: %d Wickets: %d \n", ballsLeft, secondTeam.getScore(), secondTeam.getWickets());
+            System.out.printf("Balls left: %d, score: %d Wickets: %d \n", ballsLeft, secondTeam.getScore(),
+                    secondTeam.getWickets());
             System.out.println(secondTeam.getBatter() + " " + secondTeam.getRunner());
         }
         printResult(firstTeam, secondTeam);
@@ -143,8 +144,17 @@ public class Game {
  // Design decision: Would it be better to do the batter and runner inside the team itself with out exposing it in
     the Game class?
  TODO:
- Implementing batsman and bowler.
+ Implementing Batsman and Bowler.
  Implementing constructor of Game to allow for setting overs by client.
  Edge case of hasNext. What last two are playing and no one is left on the bench. It stops. Is it right?
  Ans: Might have to remove the condition hasNext from the while loop in matchStart and put it in the wicket part of else
+
+ TODO:
+ enum for type of ball: normal, noBall, wideBall
+ enum for type of run: 0, 1, 2, 3, 4, 5, 6, Wicket
+ - Writing Batsman and Bowler specific fields.
+
+ - Considering putting the playing methods of Team class in separate PlayMatch class.
+ - Using txt file to load team and players data. Will be helpful in adding database.
+ - Organising the code in better way. Writing more descriptive commits. Creating new branches for features.
 */
