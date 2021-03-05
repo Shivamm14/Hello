@@ -19,8 +19,10 @@ public class Team {
         this.name = name;
         // adding players.
         for(Player player : players){
-            this.players.add(player);
-            this.inPlayers.add(player);
+            // making defensive copies to make internal player objects inaccessible by clients
+            Player newPlayer = new Player(player.getName());
+            this.players.add(newPlayer);
+            this.inPlayers.add(newPlayer);
         }
         // making the first two players as opening batsman.
         batter = inPlayers.get(0);
