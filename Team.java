@@ -1,17 +1,20 @@
 package com.company;
 
 import java.util.ArrayList;
+
+
 // Assuming the team will be build one time.
 // with players arrayList. Players won't be added after the initial adding.
 public class Team {
-    private String name;
-    private int score;
-    private ArrayList<Player> players = new ArrayList<Player>();
-    private ArrayList<Player> inPlayers = new ArrayList<Player>();
-    private  ArrayList<Player> outPlayers = new ArrayList<Player>();
-    private Player batter, runner;
+    private String name; // team name
+    private int score; // team score
+    private ArrayList<Player> players = new ArrayList<Player>();// list of all players.
+    private ArrayList<Player> inPlayers = new ArrayList<Player>();// list of all players ready to bat next.
+    private  ArrayList<Player> outPlayers = new ArrayList<Player>();// list of all out players.
+    private Player batter, runner;// currently batting two players on the field.
 
-    // Assuming more than 2 players.
+    // Assuming at least 2 players.
+    // builds a team with given name and list of players.
     public Team(String name, ArrayList<Player> players) {
         this.name = name;
         // adding players.
@@ -19,6 +22,7 @@ public class Team {
             this.players.add(player);
             this.inPlayers.add(player);
         }
+        // making the first two players as opening batsman.
         batter = inPlayers.get(0);
         inPlayers.remove(0);
         runner = inPlayers.get(0);
@@ -61,27 +65,35 @@ public class Team {
     public ArrayList<Player> getPlayers() {
         return players;
     }
-    // Returns the next player which the nextPlayer pointer is pointing to.
+
+    // Returns the next player who is ready to bat from the inPlayers.
     // Assumes hasNextPlayer() is true;
     private Player getNextPlayer(){
         Player removed = inPlayers.get(0); // get the next player in line.
-        inPlayers.remove(0); // remove from inline.
-        return removed;
+        inPlayers.remove(0); // remove from inPlayers.
+        return removed; // return the player.
     }
 
+    // returns true if inPlayers is not empty else returns false.
     public boolean hasNextPlayer() {
         return !inPlayers.isEmpty();
     }
+
+    // This function swaps batter and runner.
     public void takeTurn(){
         // Assuming batter and runner are set.
         Player temp = batter;
         batter = runner;
         runner = temp;
     }
+    // this function increases the score of the team as well as batter by given runs.
     public void increaseScore(int runs){
-        score += runs;
-        batter.setScore(batter.getScore() + runs);
+        score += runs; // increasing team score.
+        batter.setScore(batter.getScore() + runs); // increasing batter score.
     }
+
+    // this function puts the current batter in outPlayers and sets new batter from the inPlayers.
+    // Does nothing if all players are out.
     public void increaseWicket(){
         // checking this condition to avoid repeated adding batter in outPlayers by calling increaseWickets.
         if(outPlayers.size() < players.size()-1)
