@@ -66,9 +66,7 @@ public class Game {
                 firstTeam.takeTurn();
             }
             // printing game state after each ball.
-            System.out.printf("Balls left: %d, score: %d wickets: %d\n", ballsLeft, firstTeam.getScore(),
-                    firstTeam.getWickets());
-            System.out.println(firstTeam.getBatter() + " " + firstTeam.getRunner());
+            showMatchState(firstTeam, ballsLeft);
         }
         System.out.println("Score: " + firstTeam.getScore());
         // second inning.
@@ -92,9 +90,7 @@ public class Game {
                 secondTeam.takeTurn();
             }
             // printing current state of match.
-            System.out.printf("Balls left: %d, score: %d Wickets: %d \n", ballsLeft, secondTeam.getScore(),
-                    secondTeam.getWickets());
-            System.out.println(secondTeam.getBatter() + " " + secondTeam.getRunner());
+            showMatchState(secondTeam, ballsLeft);
         }
         printResult(firstTeam, secondTeam);
 
@@ -123,6 +119,14 @@ public class Game {
         }else{
             System.out.println("Draw!");
         }
+    }
+    // prints the match state
+    private void showMatchState(Team firstTeam, int ballsLeft){
+        // printing game state after each ball.
+        System.out.printf("Balls left: %d, score: %d wickets: %d\n", ballsLeft, firstTeam.getScore(),
+                firstTeam.getWickets());
+        System.out.println(firstTeam.getBatter() + " " + firstTeam.getRunner());
+
     }
     // TODO
     // this function takes user input of players.
@@ -157,4 +161,5 @@ public class Game {
  - Considering putting the playing methods of Team class in separate PlayMatch class.
  - Using txt file to load team and players data. Will be helpful in adding database.
  - Organising the code in better way. Writing more descriptive commits. Creating new branches for features.
+ - Write method for showing match state after each ball.
 */
