@@ -121,9 +121,12 @@ public class Team {
         inPlayers.remove(0);
         outPlayers = new ArrayList<Player>(); // emptying outPlayers.
     }
+    // returns next player to bat randomly from available players
+    private getNextPlayerRandom(){
+
+    }
 
 }
-
 // TODO
 // play or chase score is a method of team or game. Since other team has no input in it. or does it?
 // Design decision. Do I make bats and chases method of Team or Game class. Since it requires overs of Game, will have
