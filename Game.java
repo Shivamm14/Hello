@@ -49,25 +49,29 @@ public class Game {
         // first inning
         int ballsLeft = overs * 6;
         // repeat till all balls played or all wickets gone.
-        while(ballsLeft > 0){
+        while(ballsLeft > 0) {
             int run = getRuns();
-            if(run < 7){
+            if (run < 7) {
                 firstTeam.increaseScore(run);
-            }else{
+                // if odd runs, take turns.
+                if(run % 2 != 0){
+                    firstTeam.takeTurn();
+                }
+            } else {
                 // wicket
-                if(!firstTeam.hasNextPlayer()){
+                if (!firstTeam.hasNextPlayer()) {
                     break; // no more player left.
                 }
                 firstTeam.increaseWicket();
             }
             ballsLeft--;
             // take turns on over change
-            if(ballsLeft % 6 == 0){
+            if (ballsLeft % 6 == 0) {
                 firstTeam.takeTurn();
             }
             // printing game state after each ball.
             showMatchState(firstTeam, ballsLeft);
-        }
+        } //
         System.out.println("Score: " + firstTeam.getScore());
         // second inning.
         int targetScore = firstTeam.getScore();
@@ -162,4 +166,13 @@ public class Game {
  - Using txt file to load team and players data. Will be helpful in adding database.
  - Organising the code in better way. Writing more descriptive commits. Creating new branches for features.
  - Write method for showing match state after each ball.
+ - Considering the immutability of internal objects. for eg. batter's attribute can be change by clients.
+ - Relating to making defensively copying and returning the copy object.
+ - making defensive copies to make internal player objects inaccessible by clients
+ - Then have to consider the player's batsman or bowler type. ? what will be the effect of copies.
+ - Then have to also change getters of players attributes in Team to return copies instead of actual player.
+
+ Possible issues in adding features later on.
+ - Replacing batsman and bowler  with players.
+//
 */
