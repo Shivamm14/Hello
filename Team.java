@@ -123,6 +123,7 @@ public class Team {
     }
     // returns next player to bat randomly from available players
     private getNextPlayerRandom(){
+        // select a random index and return the player of that index.
 
     }
 
