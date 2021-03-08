@@ -1,8 +1,8 @@
 package com.company;
 
-public class batsman extends Player {
+public class Batsman extends Player {
 
-    public batsman(String name) {
+    public Batsman(String name) {
         super(name);
     }
 }
