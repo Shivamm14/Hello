@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 // Assuming the team will be build one time.
@@ -122,9 +123,15 @@ public class Team {
         outPlayers = new ArrayList<Player>(); // emptying outPlayers.
     }
     // returns next player to bat randomly from available players
-    private getNextPlayerRandom(){
+    // assumes hasNextPlayer is true, before calling this method.
+    public Player getNextPlayerRandom(){
         // select a random index and return the player of that index.
-
+        int len = inPlayers.size();
+        Random rand = new Random();
+        int idx = rand.nextInt(len);
+        Player nextPlayer = inPlayers.get(idx);
+        inPlayers.remove(idx);
+        return nextPlayer;
     }
 
 }

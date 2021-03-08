@@ -125,7 +125,16 @@ public class TestTeam {
     }
 
     @Test
-    void testIncreaseWicket() {
+    void testGetNextPlayerRandom() {
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(new Player("Sachin"));
+        players.add(new Player("Dravid"));
+        players.add(new Player("Virat"));
+        players.add(new Player("Rohit"));
+        Team team = new Team("India", players);
+
+        while(team.hasNextPlayer())
+            System.out.println(team.getNextPlayerRandom());
     }
 }
 // edge case on getWickets.
