@@ -8,11 +8,11 @@ import java.util.Random;
 // with players arrayList. Players won't be added after the initial adding.
 public class Team {
     private String name; // team name
-    private int score; // team score
+    private int score, runsGiven, wicketsTaken; // team score
     private ArrayList<Player> players = new ArrayList<Player>();// list of all players.
     private ArrayList<Player> inPlayers = new ArrayList<Player>();// list of all players ready to bat next.
     private  ArrayList<Player> outPlayers = new ArrayList<Player>();// list of all out players.
-    private Player batter, runner;// currently batting two players on the field.
+    private Player batter, runner, bowler;// currently batting two players on the field.
 
     // Assuming at least 2 players.
     // builds a team with given name and list of players.
@@ -30,6 +30,7 @@ public class Team {
         inPlayers.remove(0);
         runner = inPlayers.get(0);
         inPlayers.remove(0);
+        bowler = players.get(players.size()-1); // setting the last player as bowler.
     }
 
     public Player getBatter() {
@@ -93,11 +94,13 @@ public class Team {
     public void increaseScore(int runs){
         score += runs; // increasing team score.
         batter.setScore(batter.getScore() + runs); // increasing batter score.
+        batter.setBowlsBatted(batter.getBowlsBatted()+1); // increasing balls batted.
     }
 
     // this function puts the current batter in outPlayers and sets new batter from the inPlayers.
     // Does nothing if all players are out.
     public void increaseWicket(){
+        batter.setBowlsBatted(batter.getBallsBowled() + 1); // increasing balls played.
         // checking this condition to avoid repeated adding batter in outPlayers by calling increaseWickets.
         if(outPlayers.size() < players.size()-1)
             outPlayers.add(batter); // making the current batter sit with out Players.
@@ -134,6 +137,23 @@ public class Team {
         return nextPlayer;
     }
 
+    public Player getBowler() {
+        return bowler;
+    }
+
+    public void increaseGivenRuns(int runs) {
+        runsGiven += runs;
+        //increase bowler runsGiven,
+        bowler.setRunsGiven(bowler.getRunsGiven() + runs);
+        bowler.setBallsBowled(bowler.getBallsBowled() + 1);
+    }
+
+    public void increaseWicketTaken() {
+        wicketsTaken++;
+        bowler.setWicketTaken(bowler.getWicketTaken() + 1);
+        bowler.setBallsBowled(bowler.getBallsBowled() + 1);
+
+    }
 }
 // TODO
 // play or chase score is a method of team or game. Since other team has no input in it. or does it?
