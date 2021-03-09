@@ -22,13 +22,13 @@ public class Over {
     public void start(Team battingTeam, Team bowlingTeam){
 
         for(int i = 0; i < 6; i++){
-            int runs = getRuns();
+            Runs runs = Util.getRuns();
             balls.add(new Ball(runs, battingTeam.getBatter(), bowlingTeam.getBowler()));
-            if(runs < 7){
-                battingTeam.increaseScore(runs);
-                bowlingTeam.increaseGivenRuns(runs);
+            if(runs != Runs.WICKET){
+                battingTeam.increaseScore(runs.value());
+                bowlingTeam.increaseGivenRuns(runs.value());
                 // take turns on odd runs.
-                if(runs % 2 != 0){
+                if(runs.value() % 2 != 0){
                     battingTeam.takeTurn();
                 }
             }else{
@@ -38,21 +38,21 @@ public class Over {
 
             if(!battingTeam.hasNextPlayer())
                 return;
-
         }
         // take turn after over.
         battingTeam.takeTurn();
     }
     // overloaded function for second inning overs.
     public void start(Team battingTeam, Team bowlingTeam, int targetScore){
+        ///
         for(int i = 0; i < 6; i++){
-            int runs = getRuns();
+            Runs runs = Util.getRuns();
             balls.add(new Ball(runs, battingTeam.getBatter(), bowlingTeam.getBowler()));
-            if(runs < 7){
-                battingTeam.increaseScore(runs);
-                bowlingTeam.increaseGivenRuns(runs);
+            if(runs != Runs.WICKET){
+                battingTeam.increaseScore(runs.value());
+                bowlingTeam.increaseGivenRuns(runs.value());
                 // take turns on odd runs.
-                if(runs % 2 != 0){
+                if(runs.value() % 2 != 0){
                     battingTeam.takeTurn();
                 }
             }else{
@@ -65,6 +65,13 @@ public class Over {
         }
         // take turn after over.
         battingTeam.takeTurn();
+    }
+
+    @Override
+    public String toString() {
+        return "Over{" +
+                "balls=" + balls +
+                '}' + '\n';
     }
 }
 
