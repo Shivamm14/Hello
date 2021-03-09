@@ -7,7 +7,8 @@ import java.util.Random;
 // This is the Game controller class. Which will build the game, then start it.
 public class Game {
     private  int overs = 1;
-
+    private ArrayList<Over> firstInningOvers = new ArrayList<Over>();
+    private ArrayList<Over> secondInningOvers = new ArrayList<Over>();
     public Game(int overs) {
         this.overs = overs;
     }
@@ -47,59 +48,28 @@ public class Game {
     private void startMatch(Team firstTeam, Team secondTeam){
         System.out.println(firstTeam.getName() + " is batting first. ");
         // first inning
-        int ballsLeft = overs * 6;
-        // repeat till all balls played or all wickets gone.
-        while(ballsLeft > 0) {
-            int run = getRuns();
-            if (run < 7) {
-                firstTeam.increaseScore(run);
-                // if odd runs, take turns.
-                if(run % 2 != 0){
-                    firstTeam.takeTurn();
-                }
-            } else {
-                // wicket
-                if (!firstTeam.hasNextPlayer()) {
-                    break; // no more player left.
-                }
-                firstTeam.increaseWicket();
+        for(int i = 0; i < overs; i++){
+            Over curOver = new Over();
+            curOver.start(firstTeam, secondTeam);
+            firstInningOvers.add(curOver);
+            // if all out then break.
+            if(!firstTeam.hasNextPlayer()){
+                break;
             }
-            ballsLeft--;
-            // take turns on over change
-            if (ballsLeft % 6 == 0) {
-                firstTeam.takeTurn();
+        }
+        // second inning
+        for(int i = 0; i < overs; i++){
+            Over curOver = new Over();
+            curOver.start(secondTeam, firstTeam, firstTeam.getScore());
+            secondInningOvers.add(curOver);
+            // if all out or won then break;
+            if(!secondTeam.hasNextPlayer() || secondTeam.getScore() > firstTeam.getScore()){
+                break;
             }
-            // printing game state after each ball.
-            showMatchState(firstTeam, ballsLeft);
-        } //
-        System.out.println("Score: " + firstTeam.getScore());
-        // second inning.
-        int targetScore = firstTeam.getScore();
-        ballsLeft = 6 * overs;
-        // repeat till last ball or last wicket is taken or target score is reached.
-        while(ballsLeft > 0 && secondTeam.getScore() < targetScore ){
-            int run = getRuns();
-            if(run < 7){
-                secondTeam.increaseScore(run);
-            }else{
-                // wicket
-                if(!secondTeam.hasNextPlayer()){
-                    break; // no more player left.
-                }
-                secondTeam.increaseWicket();
-            }
-            ballsLeft--;
-            // take turns
-            if(ballsLeft % 6 == 0){
-                secondTeam.takeTurn();
-            }
-            // printing current state of match.
-            showMatchState(secondTeam, ballsLeft);
         }
         printResult(firstTeam, secondTeam);
-
-
     }
+
     // generate a function which returns random number between 0 and 7˳.
     public static int getRuns(){
         Random rand = new Random();
@@ -175,4 +145,20 @@ public class Game {
  Possible issues in adding features later on.
  - Replacing batsman and bowler  with players.
 //
+
+TODO
+- To include bowler in giving runs and wicket, considering making methods in Team class, itself.
+  similar to increaseScore method for batting team.
+
+- Considered adding runsMade and runsGiven attributes in Batsman and Bowler, but that will restrict choosing a batsman
+ to bowl, and vice versa. Since they are interchangeable.
+
+- 1. Take input from file.
+- 2. storing overs details. Done
+- 3. firstInningsOvers, secondInningOvers. Done
+- 4. Over - list of balls. 1, 2, 3, 4, 5, 6, W Done
+- 5. Adding bowler data. - adding currentBowler in Team, and runsGiven and wicketsTaken Done. // nextBowler.
+- 6. My design decision is based on not exposing players of Team outside. Doing everything inside Team.
+- 7. Modifying getRuns for Batsman and Bowler.
+- 8. Storing data in database. What to store? Scoreboard, match details,
 */
