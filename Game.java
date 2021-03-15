@@ -6,7 +6,7 @@ import java.util.Random;
 
 // This is the Game controller class. Which will build the game, then start it.
 public class Game {
-    private  int overs = 1;
+    private  int overs;
     private ArrayList<Over> firstInningOvers = new ArrayList<Over>();
     private ArrayList<Over> secondInningOvers = new ArrayList<Over>();
     public Game(int overs) {
@@ -46,14 +46,14 @@ public class Game {
     }
     // this function starts the match, assuming firstTeam is batting first.
     private void startMatch(Team firstTeam, Team secondTeam){
-        System.out.println(firstTeam.getName() + " is batting first. ");
+
         // first inning
         for(int i = 0; i < overs; i++){
             Over curOver = new Over();
             curOver.start(firstTeam, secondTeam);
             firstInningOvers.add(curOver);
             // if all out then break.
-            if(!firstTeam.hasNextPlayer()){
+            if(firstTeam.isAllOut()){
                 break;
             }
         }
@@ -63,10 +63,11 @@ public class Game {
             curOver.start(secondTeam, firstTeam, firstTeam.getScore());
             secondInningOvers.add(curOver);
             // if all out or won then break;
-            if(!secondTeam.hasNextPlayer() || secondTeam.getScore() > firstTeam.getScore()){
+            if(secondTeam.isAllOut() || secondTeam.getScore() > firstTeam.getScore()){
                 break;
             }
         }
+
         printResult(firstTeam, secondTeam);
     }
 
@@ -86,6 +87,30 @@ public class Game {
     }
     // prints the result based on the scores of the two team.
     private void printResult(Team firstTeam, Team secondTeam){
+        System.out.println(firstTeam.getName() + " vs " + secondTeam.getName());
+        System.out.println(firstTeam.getName() + " is batting first. ");
+        // printing first inning overs details.
+        for(Over over : firstInningOvers){
+            System.out.println("Over");
+
+            for(Ball ball : over.getBalls()){
+                System.out.println("Batsman: " + ball.getBatsman().getName() + " " +  ball.getRuns());
+            }
+            Player bowler = over.getBowler();
+            System.out.println("Bowler: " + bowler.getName() + " runs given: " + over.getTotalRuns());
+        }
+        System.out.println(secondTeam.getName() + " bats to chase score of " + firstTeam.getScore());
+        // printing second inning overs details.
+        for(Over over : secondInningOvers){
+            System.out.println("Over");
+
+            for(Ball ball : over.getBalls()){
+                System.out.println("Batsman: " + ball.getBatsman().getName() + " " +  ball.getRuns());
+            }
+            Player bowler = over.getBowler();
+            System.out.println("Bowler: " + bowler.getName() + " runs given: " + over.getTotalRuns());
+        }
+
         if(firstTeam.getScore() < secondTeam.getScore()){
             System.out.println(secondTeam.getName() + " won!");
         }else if(firstTeam.getScore() > secondTeam.getScore()){

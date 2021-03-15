@@ -95,6 +95,9 @@ public class Team {
         score += runs; // increasing team score.
         batter.setScore(batter.getScore() + runs); // increasing batter score.
         batter.setBowlsBatted(batter.getBowlsBatted()+1); // increasing balls batted.
+        if(runs % 2 != 0) {
+            takeTurn(); // take turn if odd runs.
+        }
     }
 
     // this function puts the current batter in outPlayers and sets new batter from the inPlayers.
@@ -153,6 +156,10 @@ public class Team {
         bowler.setWicketTaken(bowler.getWicketTaken() + 1);
         bowler.setBallsBowled(bowler.getBallsBowled() + 1);
 
+    }
+
+    public boolean isAllOut() {
+        return outPlayers.size() == players.size();
     }
 }
 // TODO
