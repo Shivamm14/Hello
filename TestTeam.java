@@ -131,6 +131,22 @@ public class TestTeam {
         players.add(new Player("Dravid"));
         players.add(new Player("Virat"));
         players.add(new Player("Rohit"));
+        players.add(new Batsman("Dhoni"));
+
+        for(Player player : players){
+            if(player instanceof Player){
+                System.out.print("Player, ");
+            }
+            if(player instanceof Batsman){
+                System.out.print(" Batsman");
+            }
+            System.out.println();
+        }
+        Assertions.assertEquals(true, players.get(4) instanceof Player);
+
+        Assertions.assertEquals(false, players.get(0) instanceof Batsman);
+
+        Assertions.assertEquals(true, players.get(4) instanceof Batsman);
         Team team = new Team("India", players);
 
         while(team.hasNextPlayer())
